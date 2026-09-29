@@ -130,3 +130,6 @@ dmypy.json
 .vscode/
 pytest.ini
 .push.settings.jsonc
+allure-results/
+allure-report/
+.pytest_cache/
