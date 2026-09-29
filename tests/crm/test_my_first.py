@@ -1,3 +1,4 @@
+import allure
 from django.db import IntegrityError
 from tests.base_test_classes import BaseTestCase
 from crm.models import Company
@@ -5,9 +6,11 @@ from crm.models import Country
 from common.utils.helpers import USER_MODEL
 
 
+@allure.feature("客户管理")
 class TestMyCompany(BaseTestCase):
     """测试 Company 模型的基础功能"""
 
+    @allure.story("创建公司")
     def test_create_company(self):
         """创建公司后能查询到"""
         owner = USER_MODEL.objects.get(username="Adam.Admin")
@@ -19,6 +22,7 @@ class TestMyCompany(BaseTestCase):
         self.assertEqual(Company.objects.count(), 1)
         self.assertEqual(company.full_name, "测试公司")
 
+    @allure.story("字符串表示")
     def test_company_str(self):
         """公司对象的字符串表示是 full_name"""
         owner = USER_MODEL.objects.get(username="Adam.Admin")
@@ -29,6 +33,7 @@ class TestMyCompany(BaseTestCase):
         )
         self.assertEqual(str(company), "测试公司")
 
+    @allure.story("字段校验")
     def test_company_requires_name(self):
         """公司名为空时应报错"""
         owner = USER_MODEL.objects.get(username="Adam.Admin")
@@ -36,6 +41,7 @@ class TestMyCompany(BaseTestCase):
         with self.assertRaises(Exception):
             company.full_clean()
 
+    @allure.story("字段校验")
     def test_company_email_required(self):
         """邮箱为空时应报错"""
         owner = USER_MODEL.objects.get(username="Adam.Admin")
@@ -43,6 +49,7 @@ class TestMyCompany(BaseTestCase):
         with self.assertRaises(Exception):
             company.full_clean()
 
+    @allure.story("唯一约束")
     def test_company_unique_together(self):
         """同一国家内公司名不能重复"""
         owner = USER_MODEL.objects.get(username="Adam.Admin")

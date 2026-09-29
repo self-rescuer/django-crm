@@ -1,9 +1,11 @@
+import allure
 from django.core.exceptions import ValidationError
 from crm.models import Request, Company, Contact, Lead
 from tests.base_test_classes import BaseTestCase
 from common.utils.helpers import USER_MODEL, get_department_id
 
 
+@allure.feature("客户请求")
 class TestMyRequest(BaseTestCase):
     """测试 Request 模型的验证规则"""
 
@@ -16,6 +18,7 @@ class TestMyRequest(BaseTestCase):
             owner=self.owner
         )
 
+    @allure.story("字段校验")
     def test_request_requires_first_name(self):
         """first_name 为空时校验失败"""
         request = Request(
@@ -28,6 +31,7 @@ class TestMyRequest(BaseTestCase):
         with self.assertRaises(ValidationError):
             request.full_clean()
 
+    @allure.story("业务规则")
     def test_request_contact_and_company_must_match(self):
         """contact 属于另一家公司时校验失败"""
         other_company = Company.objects.create(
@@ -47,13 +51,14 @@ class TestMyRequest(BaseTestCase):
             request_for="咨询",
             first_name="张",
             contact=contact,
-            company=self.company,    # ← 和 contact.company 不一致
+            company=self.company,
             department_id=self.department_id,
             owner=self.owner
         )
         with self.assertRaises(ValidationError):
             request.full_clean()
 
+    @allure.story("业务规则")
     def test_request_cannot_have_both_contact_and_lead(self):
         """不能同时指定 contact 和 lead"""
         contact = Contact.objects.create(
@@ -76,7 +81,7 @@ class TestMyRequest(BaseTestCase):
             request_for="咨询",
             first_name="李",
             contact=contact,
-            lead=lead,    # ← 同时指定了两个
+            lead=lead,
             department_id=self.department_id,
             owner=self.owner
         )
