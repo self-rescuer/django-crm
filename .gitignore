@@ -128,7 +128,6 @@ dmypy.json
 
 # VScode settings
 .vscode/
-pytest.ini
 .push.settings.jsonc
 allure-results/
 allure-report/
