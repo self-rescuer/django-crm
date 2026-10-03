@@ -21,6 +21,7 @@ class DataFactory:
             "full_name": "测试公司",
             "email": "company@test.com",
             "owner": self.owner,
+            "department_id": self.department_id,
         }
         defaults.update(kwargs)
         return Company.objects.create(**defaults)
