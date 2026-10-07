@@ -16,6 +16,8 @@
 | CRM - 端到端 | test_my_e2e.py | 1 | 从请求到交易的完整流程 |
 | Tasks - 任务 | test_my_task.py | 5 | 任务创建、状态联动、业务规则 |
 | Tasks - 项目 | test_my_project.py | 3 | 项目创建、状态联动 |
+ |CRM - 权限控制 |	test_my_object_permissions.py |	3 |	部门级权限：同部门、跨部门、管理员|
+  |CRM - 边界值 |	test_my_boundary.py |	7 |	字段长度、空值、特殊字符|
 | **合计** | | **24** | |
 
 ## 测试分层
@@ -79,3 +81,25 @@ tests/
 3.数据工厂类名触发 pytest 警告：类名以 Test 开头被误判为测试类。
 
 解决：改名为 DataFactory。
+
+## 项目完成状态
+
+- 测试总数：34
+- 覆盖模块：CRM（客户、线索、交易、请求、权限、边界）、Tasks（任务、项目）
+- 测试分层：模型测试、业务规则测试、权限测试、边界测试、端到端测试
+- CI/CD：GitHub Actions 自动运行
+- 报告：Allure 可视化
+
+## 最终统计
+
+| Suite | 用例数 |
+|-------|--------|
+| tests.crm | 26 |
+| tests.tasks | 8 |
+| **合计** | **34** |
+
+## 技术栈
+
+- Python 3.12 + Django 6.0
+- pytest + pytest-django + Allure
+- GitHub Actions
